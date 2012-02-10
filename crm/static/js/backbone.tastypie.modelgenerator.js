@@ -41,8 +41,8 @@
             
             window[_mdl['name']] = Backbone.Model.extend({
 				urlRoot: _mdl['url'],
-                validate:_mdl['validator']
-                if schema
+                validate:_mdl['validator'],
+                schema:_mdl['schema']
 			});
 			window[_mdl['container_name']] = Backbone.Collection.extend({
 				urlRoot: _mdl['url'], 
