@@ -1,0 +1,11 @@
+from django.conf import settings
+from django.conf.urls.defaults import *
+
+urlpatterns = patterns('',
+        url(r'user$', 'configuration.views.users', name = "list_users"),
+        url(r'user/(?P<username>\w+)$', 'configuration.views.user.details', name = "user_info"),
+
+        url(r'project$', 'configuration.views.projects', name = "list_projects"),
+        url(r'project/(?P<pid>\d+)$', 'configuration.views.project.details', name = "project_info"),
+        url(r'project/(?P<pid>\d+)/activity/(?P<aid>\d+)$', 'configuration.views.projectactivity.details', name = "activity_info"),
+)
