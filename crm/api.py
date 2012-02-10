@@ -25,7 +25,7 @@ class RelationshipResource(ModelResource):
 		authorization = global_auth()
 
 class ContactRelationshipResource(ModelResource):
-	contact_from = fields.ToOneField('crm.api.ContactResource', 'contact_from', extras={'related':'Contact'})
+	contact_from = fields.ToOneField('crm.api.ContactResource', 'contact_from')
 	contact_to = fields.ToOneField('crm.api.ContactResource', 'contact_to')
 	relationship = fields.ToOneField('crm.api.RelationshipResource', 'relationship', full=True)
 	
@@ -35,11 +35,11 @@ class ContactRelationshipResource(ModelResource):
 		authorization = global_auth()
 
 class CompanyResource(ModelResource):
-	addresses = fields.ToManyField('crm.api.CompanyAddressResource', 'addresses', full=True)
-	websites = fields.ToManyField('crm.api.CompanyWebsiteResource', 'websites', full=True)
-	contacts = fields.ToManyField('crm.api.ContactResource', 'contacts', full=True)
-	socials = fields.ToManyField('crm.api.ContactSocialResource', 'social', full=True)
-	areas = fields.ToManyField('crm.api.CompanyAreaResource', 'areas', full=True)
+	addresses = fields.ToManyField('crm.api.CompanyAddressResource', 'addresses', full=True, extras={'type':"List"})
+	websites = fields.ToManyField('crm.api.CompanyWebsiteResource', 'websites', full=True, extras={'type':"List"})
+	contacts = fields.ToManyField('crm.api.ContactResource', 'contacts', full=True, extras={'type':"List"})
+	socials = fields.ToManyField('crm.api.ContactSocialResource', 'social', full=True, extras={'type':"List"})
+	areas = fields.ToManyField('crm.api.CompanyAreaResource', 'areas', full=True, extras={'type':"List"})
 	
 	class Meta:
 		queryset = Company.objects.all()
@@ -53,7 +53,7 @@ class PlaceResource(ModelResource):
 		authorization = global_auth()
 
 class CompanyAddressResource(ModelResource):
-	place = fields.ToOneField('crm.api.PlaceResource', 'place', full=True)
+	place = fields.ToOneField('crm.api.PlaceResource', 'place', full=True, extras={ 'type': 'NestedModel', 'model': 'Place' },)
 	class Meta:
 		queryset = CompanyAddress.objects.all()
 		resource_name = "company_address"
