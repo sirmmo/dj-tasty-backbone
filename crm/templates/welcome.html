@@ -1,0 +1,86 @@
+{% extends "base_reload.html" %}
+{% load i18n basic_tags %}
+
+{% block navbar %}{{ user }}{% endblock %}
+
+{% block more_headers %}
+	{{ block.super }}
+	<script type="text/javascript">//<![CDATA[
+		Event.observe(window, "load", function(event) {
+			initialize(event);
+			{% if user.is_staff %}
+				ViewManager.set('timeline_view');
+			{% else %}
+				ViewManager.set('calendar_view');
+			{% endif %}
+		});
+	//]]> </script>
+{% endblock %}
+
+{% block resource_panel %}
+	{% if users %}
+		{% start_labs_block "Utenti" "user_tree" %}
+			<div class="tree" path="users" selection="checkbox" checks="users/{{ user.id }}">
+				{% include "configuration/part/users/list.html" %} 
+			</div>
+		{% end_labs_block %}
+	{% endif %}
+
+	{% if projects %}
+		{% start_labs_block "Commesse" "project_tree" %}
+			<div class="tree" path="projects" selection="checkbox">
+				{% include "configuration/part/projects/list.html" %} 
+			</div>
+		{% end_labs_block %}
+	{% endif %}
+
+	{% comment %}
+	{% if companies %}
+		{% start_labs_block "Clienti" "company_tree" %}
+			<div class="tree">
+				Qui ci va l'albero dei clienti
+			</div>
+		{% end_labs_block %}
+	{% endif %}
+	{% endcomment %}
+
+{% endblock resource_panel %}
+
+{% block section_toolbar %}
+		<span class="button selected"><a class="section_link" href="task/timeline/" onclick="show_planned_activities(event);">Pianificazione</a></span>
+		<span class="button selectable"><a class="section_link" href="task/timeline/" onclick="show_reported_activities(event);">Rendicontazione</a></span>
+		{# <span class="button">Rimborso</span> #}
+{% endblock %}
+
+{% block body_content %} 
+<div id="view_toolbar_wrapper">
+	<div id="scroll_buttons" style="position:absolute; float: left;">
+		<img style="cursor:pointer;" onclick="var view=get_current_view(); view.scrollBy(-view.innerWidth, 0);" src="/static/theme/img/buttons/2leftarrow.png" border="0">
+		<img onmouseover="rtl_timer=setInterval('get_current_view().scrollBy(-8, 0)',20);" onmouseout="clearTimeout(rtl_timer);" src="/static/theme/img/buttons/1leftarrow.png" border="0">
+		<img onmouseover="ltr_timer=setInterval('get_current_view().scrollBy(8, 0)',20);" onmouseout="clearTimeout(ltr_timer);" src="/static/theme/img/buttons/1rightarrow.png" border="0">
+		<img style="cursor:pointer;" onclick="var view=get_current_view(); view.scrollBy(view.innerWidth, 0);" src="/static/theme/img/buttons/2rightarrow.png" border="0">
+		
+	</div>
+
+ <div id="view_toolbar">
+	<span class="button {% if not user.is_staff %}selected{% endif %}"><a id="calendar_view_link" class="section_link" href="#" onclick="ViewManager.set('calendar_view');">{% trans "Calendar" %}</a></span>
+	<span class="button {% if user.is_staff %}selected{% endif %}"><a id="timeline_view_link" class="section_link" href="#" onclick="ViewManager.set('timeline_view');">{% trans "Timeline" %}</a></span>
+	<span class="button"><a id="details_view_link" class="section_link" href="#" onclick="ViewManager.set('details_view');">{% trans "Details" %}</a></span>
+ </div>
+</div>
+
+<div id="frame_wrapper">
+	{# IMPORTANTE: Aggiungere in coda nuovi frame ... non in testa ! #}
+	<iframe id="timeline_view" name="timeline" src="task/timeline/" style="display: none; border: 0px">
+	</iframe>
+
+	<iframe id="details_view" name="details" src="details/" style="display: none; border : 0px;">
+	</iframe>
+
+	<iframe id="calendar_view" name="calendar" src="task/calendar/" style="display: none; border: 0px">
+	</iframe>
+
+</div>
+
+{% endblock body_content %}
+

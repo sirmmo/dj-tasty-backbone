@@ -1,0 +1,30 @@
+.form_from_django #content {
+     width : 350px;
+}
+
+.form_from_django #header,
+.form_from_django .breadcrumbs,
+.form_from_django .add-another {
+     display : none;
+}
+
+.form_from_django #content {
+    background-color : lightyellow;
+    border : 1px solid grey;
+    padding : 5px;
+}
+
+.form_from_django .colM .aligned .vLargeTextField {
+    width : 300px;
+    height : 150px;
+    display : block;
+}
+
+.form_from_django .colM .aligned .help {
+    padding-left : 0px;
+    margin-left : 0px;
+}
+
+.calendarbox, .clockbox {
+    z-index : 5000;
+}

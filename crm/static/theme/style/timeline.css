@@ -1,0 +1,98 @@
+/* Dimensioni calendario e celle:
+ per modificare la visualizzazione agire su questi elementi
+ */
+
+#calendar {
+   width : 5000px;
+   overflow : visible;
+}
+
+.table_cell {
+   width : 140px;
+   height : 20px;
+}
+
+.table_row {
+   display : inline;
+}
+
+.weekday {
+   text-align : center;
+   font-size : 10px;
+   border : 1px solid lightgrey;
+   margin : 5px 0 10px 0;
+
+}
+
+.week {
+   margin: 0 15px;
+}
+
+#calendar_head {
+   margin-left : 150px;
+}
+
+.other_month {
+   opacity : 0.6;
+}
+
+#calendar_body > .header {
+   float : left;
+   width : 150px;
+   //position : fixed;
+   background-color : white;
+   z-index : 100;
+}
+
+#calendar_body > .header > .firstrow {
+   width : 150px;
+   background-color : white;
+   border : 0px solid grey;
+   font-size:10px; 
+}
+
+.day_holder, .weekday {
+   display : table-cell;
+}
+
+.other_month {
+   opacity : 50%;
+}
+
+.day {
+   border : 1px solid grey;
+   margin : 5px 0 10px 0;
+}
+
+.today {
+   border : 1px solid lightgreen;
+   color : red;
+}
+
+#timecard_form {
+    z-index : 1000;
+    position : absolute;
+    top : 0px;
+    left : 0px;
+    width : 477px;
+    padding : 10px 10px 0px 10px;
+    margin : 5px;
+    background-color : lightyellow;
+    border : 1px solid lightgrey;
+}
+
+/*
+
+.days {
+  position : absolute;
+  left : 88px;
+  width : 3700px;
+}
+
+#calendar_body .timeslice {
+   display : none;
+   border : 1px solid grey;
+   background-color : lightgrey;
+}
+*/
+

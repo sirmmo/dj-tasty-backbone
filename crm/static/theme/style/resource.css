@@ -1,0 +1,55 @@
+li.resource { 
+  display : list-item; 
+  list-style-position : inside;
+  background-color : transparent;
+  width : 100%;
+}
+
+ul.verbose_target_status > li.resource {
+  width : 400px;
+}
+
+.big_resource_details {
+   padding: 5px 10px 5px 10px;
+   font-size : 12px;
+}
+
+.details {
+   margin : 20px 0 0 0;
+}
+
+.details th {
+   text-align : left;
+}
+
+.details td,
+.details td *
+{
+   width : 80%;
+}
+
+.resource_subtree {
+   position : absolute;
+   top : 400px;
+   left : 50px;
+   float : left;
+}
+
+.subtargetlist { 
+   margin : 8px 0 0 20px;
+}
+
+.resource_state {
+  list-style-position : inside;
+  list-style-type : none;
+  padding-left : 20px;
+}
+
+/**************************
+ ******** Risorse  ********
+ **************************/
+
+.resource { 
+   list-style-type : none;
+   list-style-image : none;
+}

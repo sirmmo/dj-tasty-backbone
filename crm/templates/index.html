@@ -1,0 +1,474 @@
+{% extends "base_reload.html"%}
+{%block style%}
+#sidebar{
+width:200px;
+display:block;
+border-right:1px solid gray;
+float:left;
+}
+#sidebar_divider{
+height:4px;
+background-color:gray;
+width:100%;
+}
+#users_bar ul{
+overflow:auto;
+}
+#projects_bar ul{
+overflow:auto;
+}
+
+#content{
+float:left;
+display:block;
+position:relative;
+
+}
+#toolbar{
+display:block;
+background-color:grey;
+}
+#users_bar{
+overflow-y: scroll;
+
+
+}
+#projects_bar{
+overflow-y: scroll;
+
+
+}
+form{
+font-size:12px;}
+{%endblock%}
+
+{%block scripts%}
+<script>
+head.ready(function(){
+
+$('.labs_app').hide();
+$('#loading').dialog({modal:true, title:'Loading...'});
+$.router({
+	reload:function(){	
+		$('.labs_app').hide();
+	
+		$.getJSON('/arid/templates?name=reload', function (templates) {
+    		$.each(templates, function (template) {
+        		ich.addTemplate(template.name, template.template);
+		    });
+
+			
+		});
+
+		$('#reload').show();
+		
+	
+
+        var user = "{{username}}";
+
+
+
+
+        
+
+
+
+        function CreateRow(row, key, value){
+                var str = "";
+                var is_url = key == "url";
+                str += (row % 2 == 0) ? '<tr class="alt">' : '<tr>';
+                str += '<th scope="row">' + key + '</th>';
+                str += '<td>';
+                if (is_url)
+                        str += "<a class='more_info' href='#" + value + "'>";
+                str += value;
+                if (is_url)
+                        str +="</a>";
+                str += '</td>';
+                str += '</tr>';
+                return str;
+
+        }
+
+        function CreateDetailView(obj) {
+                var str = '';
+                if (typeof(obj) == "object"){
+                        if ('length' in obj){
+                                for (var n in obj){
+                                        str += CreateDetailView(obj[n]);
+                                }
+                        } else{
+
+                                str += '<table>';
+                                str += '<tbody>';
+
+                                for (var key in obj) {
+                                        var row = 0;
+                                        if (typeof(obj[key]) == "object") {
+                                                if ('length' in obj[key]){
+                                                        for (var index in obj[key]) {
+                                                                str += CreateRow(row, key, CreateDetailView(obj[key][index]))
+                                                        }
+                                                }else{
+                                                        str += CreateRow(row, key,CreateDetailView(obj[key]));
+                                                }
+                                        }
+                                        else{
+                                                str += CreateRow(row, key,CreateDetailView(obj[key]));
+                                        }
+                                        row++;
+                                }
+                                str += '</tbody>'
+                                str += '</table>';
+                                return str;
+                        }
+
+                } else
+                        return obj;
+
+        }
+	$('#form_planning').live('submit', function(event){
+		event.preventDefault();
+		var form = $(this);
+		var serialized = $(form).serialize();
+		var url = "{{form_planning_url}}";
+		$.ajax({
+			type: "POST",
+			url: url,
+			data: serialized,
+			success:function(){
+				alert('done');
+			}
+    		});
+	});
+
+	$('#form_reporting').live('submit', function(event){
+		event.preventDefault();
+                var form = $(this);
+                var serialized = $(form).serialize();
+                var url = "{{form_reporting_url}}";
+                $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: serialized,
+			success:function(){
+				alert('done');
+			}
+                });
+        });
+
+        $('input:checkbox[name=selected_user]').live('click',function(){
+
+                reset_calendar();
+                $.selected_users = [user];
+                $('input:checkbox[name=selected_user]:checked').each(function() {
+                        $.selected_users.push($(this).val());
+                });
+                add_calendars();
+                reload_calendar();
+        });
+        $('input:checkbox[name=selected_proj]').live('click', function(){
+
+                reset_calendar();
+
+                $.selected_projects = [];
+                $('input:checkbox[name=selected_proj]:checked').each(function() {
+                        $.selected_projects.push($(this).val());
+                });
+                add_calendars();
+                reload_calendar();
+        });
+ 
+		$('#loading').dialog({modal:true, title:'Loading...'});
+                resize()
+                $('#calendar_view').buttonset();
+
+                $.getJSON('/info/user', function(data){
+                        for (el in data){
+                                $('#user_list').append('<li class="user_selector"><input type="checkbox" name="selected_user" value='+data[el]['username']+'><a class="more_info"  href="#'+data[el]['url']+'">'+data[el]['fullname']+'</a></li>')
+                        }
+                });
+
+                $.getJSON('/info/project', function(data){
+                        for (el in data){
+                                $('#proj_list').append('<li class="proj_selector"><input type="checkbox" name="selected_proj" value='+data[el]['id']+'><a class="more_info" href="#'+data[el]['url']+'">'+data[el]['name']+'</a></li>')
+                        }
+                });
+
+                $('input.cal_view_sel').click(function(){
+                        reset_calendar();
+                        add_calendars();
+                        reload_calendar();
+                });
+                
+                $.evtsources = [ES_from_user(user, $('input.cal_view_sel:checked').val(), [])];
+
+                $('#calendar').fullCalendar({
+                        theme:true,
+                        firstDay:1,
+                        allDaySlot:false,
+                        firstHour:8,
+                        axisFormat:'HH:mm',
+			dayClick:function(date, allDay, jsEvent, view){
+				var save_date = date;
+				var event_data = jsEvent;
+				var click_view = view;
+
+			},	
+			eventMouseover:function(event, jsEvent, view){
+			},
+			eventMouseout:function(event, jsEvent, view){
+			},
+			selectable:true,
+			selectHelper:true,
+			eventRender:function(event, element){
+				element.html(element.html() + event.html_description);
+			},
+			eventClick:function(calEvent, jsEvent, view){
+				var selected_id =  calEvent.id;
+				$.get("https://reloadng.labs.it/tasks/"+$('input.cal_view_sel:checked').val()+"/form?id="+selected_id, function(data){
+                                        $(data)
+					.find('.date')
+                                        .datepicker().closest('form')
+                                        .find('.time')
+                                        .timepicker({
+                                                onHourShow: OnHourShowCallback,
+                                                onMinuteShow: OnMinuteShowCallback,
+minutes: {
+	starts: 0,                  // first displayed minute
+        ends: 30,
+        interval: 30                 // interval of displayed minutes
+    }
+                                        }).closest('form')
+					.dialog({
+						width:500,
+                                                modal:true,
+						buttons:[{
+							text:'Submit',
+							click:function(){
+								var dialog = $(this);
+						                var serialized = $(this).serialize();
+						                var url = "https://reloadng.labs.it/tasks/"+$('input.cal_view_sel:checked').val()+"/form";
+						                $.ajax({
+						                        type: "POST",
+						                        url: url,
+						                        data: serialized,
+						                        success:function(){
+						                                dialog.dialog('destroy');
+										alert('Done!');
+										$('#calendar').fullCalendar('refetchEvents');
+										$('form').remove();
+						                        }
+						                });
+							}
+						}, {
+							text:'Cancel',
+							click:function(){
+								$(this).dialog('destroy');
+								$('form').remove();
+							}
+						}, {
+							text:'Delete',
+							click:function(){
+								var dialog = $(this);
+								var url = "https://reloadng.labs.it/tasks/"+$('input.cal_view_sel:checked').val()+"/delete";
+								$.ajax({
+                                                                        type: "POST",
+                                                                        url: url,
+                                                                        data: {id:selected_id},
+                                                                        success:function(){
+                                                                                dialog.dialog('destroy');
+                                                                                alert('Deleted!');
+										$('#calendar').fullCalendar('refetchEvents');
+										$('form').remove();
+                                                                        }
+                                                                });
+							}
+						}]
+                                        });
+                                });
+			}, 
+			select:function(startDate, endDate, allDay, jsEvent, view){
+				var start_date = startDate;
+				var end_date = endDate;
+				var start = ISODateString(start_date);
+				var end = ISODateString(end_date);
+				$.get("https://reloadng.labs.it/tasks/"+$('input.cal_view_sel:checked').val()+"/form?start="+start+"&end="+end+"&user="+user, function(data){
+					$(data)
+					.find('.date')
+					.datepicker().closest('form')
+					.find('.time')
+					.timepicker({
+						onHourShow: OnHourShowCallback,
+						onMinuteShow: OnMinuteShowCallback, minutes: {
+							starts: 0,                  // first displayed minute
+					        ends: 30,
+					        interval: 30                 // interval of displayed minutes
+					    }}).closest('form').dialog({
+												width:500,
+                                                modal:true,
+                                                buttons:[{
+                                                        text:'Submit',
+                                                        click:function(){
+                                                                var dialog = $(this);
+                                                                var serialized = $(this).serialize();
+                                                                var url = "https://reloadng.labs.it/tasks/"+$('input.cal_view_sel:checked').val()+"/form";
+                                                                $.ajax({
+                                                                        type: "POST",
+                                                                        url: url,
+                                                                        data: serialized,
+                                                                        success:function(){
+                                                                                dialog.dialog('destroy');
+                                                                                alert('Done!');
+										$('#calendar').fullCalendar('refetchEvents');	
+										$('form').remove();
+                                                                        }
+                                                                });
+                                                        }
+                                                }, {
+                                                        text:'Cancel',
+                                                        click:function(){
+                                                                $(this).dialog('destroy');
+								$('form').remove();
+                                                        }
+                                                }]
+                                        });
+				});
+
+			},
+			editable:true,
+                        header: {
+                                left:   'title',
+                                center: 'month agendaWeek agendaDay',
+                                right:  'today prev,next'
+                        },
+                        eventSources:[ES_from_user(user, $('input.cal_view_sel:checked').val(), [])],
+			ignoreTimezone :false,
+			loading:function(isloading, view){
+				if (isloading)
+				$('#loading').dialog('open');
+				else
+				$('#loading').dialog('close');
+			}
+                });
+
+                $('#movable').tabs().resizable();
+
+                var dates = $( "#from, #to" ).datepicker({
+                        defaultDate: "+1w",
+                        changeMonth: true,
+                        numberOfMonths: 3,
+                        onSelect: function( selectedDate ) {
+                                var option = this.id == "from" ? "minDate" : "maxDate",
+                                instance = $( this ).data( "datepicker" ),
+                                date = $.datepicker.parseDate(
+                                instance.settings.dateFormat ||
+                                        $.datepicker._defaults.dateFormat,
+                                selectedDate, instance.settings );
+                                dates.not( this ).datepicker( "option", option, date );
+                        }
+                });
+                $('.more_info').click(function(){
+                        var url = $(this).attr('href').split('#')[1];
+                        $.getJSON(url, function(data){
+                                CreateDetailView(data).dialog();
+                        });
+                });
+                resize();
+                $(window).resize(resize);
+	},
+	default:function(){
+		$('.labs_app').hide();
+	},
+	crm:function(){
+		$('.labs_app').hide();
+		$('#crm').show();
+	}});
+});
+head.js(
+	"/static/js/jquery.min.js",  
+	"/static/js/jquery-ui-1.8.13.custom.min.js", 
+	"/static/js/jquery.ui.timepicker.js", 
+	"/static/js/jquery.router.js",  
+	"/static/js/fullcalendar.min.js",
+	"/static/js/underscore.min.js",
+	"/static/js/backbone.min.js",
+	"/static/js/backbone.tastypie.js",
+	"/static/js/backbone.relational.js",
+	"/static/js/backbone.tastypie.modelgenerator.js",
+	"/static/js/backbone.validations.js",
+	"/static/js/ich.min.js",
+	"/static/js/reload.js"
+	);
+
+</script>
+{%endblock%}
+
+{%block user_data%}
+<div class="username">{{username}}</div>
+{%endblock%}
+
+{%block logo%}
+{%endblock%}
+
+{%block content%}
+<div id="reload" class="labs_app">
+	<div id="sidebar">
+    	    <div id="users_bar">
+        	        <ul id="user_list">
+	
+    	            </ul>
+        	</div>
+	        <div id="sidebar_divider"></div>
+    	    <div id="projects_bar">
+        	        <ul id="proj_list">
+            	    </ul>
+	        </div>
+	</div>
+	<div id="content">
+    	    <div id="toolbar">
+        	        <div id="calendar_view">
+            	            <input type="radio" class="cal_view_sel" id="view_plan" value="planning" name="view" checked="true"/><label for="view_plan">Pianificazione</label>
+                	        <input type="radio" class="cal_view_sel" id="view_ext" value="reporting" name="view" /><label for="view_ext">Rendicontazione</label>
+	                </div>
+    	    </div>
+        	<div id="movable">
+            	    <ul>
+                	        <li><a href="#calendar">Calendario</a></li>
+                    	    <li><a href="#timeline">Timeline</a></li>
+                        	<li><a href="#table">Tabella</a></li>
+	                </ul>
+    	            <div id="calendar"></div>
+        	        <div id="timeline">
+            	            <div id="slider-stage">
+                	                <ul id="myList">
+                                	        <li > </li>
+                    	                    <li > </li>
+                        	                <li > </li>
+                            	            <li > </li>
+	                                </ul>
+    	                    </div>
+        	                <div id="slider-buttons">
+            	                    <a href="#" id="previous_week">Previous</a>
+                	                <a href="#" id="next_week">Next</a>
+                    	    </div>
+	                </div>
+    	            <div id="table">
+        	                <div id="search_box">
+            	                    <div id="timespan">
+                	                        <label for="from">From</label>
+                    	                    <input type="text" id="from" name="from"/>
+                        	                <label for="to">to</label>
+                            	            <input type="text" id="to" name="to"/>
+                                	</div>
+	                                <input type="submit" name="Search" />
+    			</div>
+        	</div>
+		</div>
+	</div>	
+</div>
+<div id="crm" class="labs_app">
+CRM
+</div>
+<div id="loading">Loading!</div>
+{%endblock%}

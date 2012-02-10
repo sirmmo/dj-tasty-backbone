@@ -1,0 +1,30 @@
+#dhtmltooltip {
+	position: absolute;
+	border: 1px solid #ccc;
+	padding: 2px;
+	background-color: lightyellow;
+	visibility: hidden;
+	z-index: 100;
+	font: 10px verdana, arial, helvetica;
+	max-width : 300px;
+	/*Remove below line to remove shadow. Below line should always appear last within this CSS*/
+	filter: progid:DXImageTransform.Microsoft.Shadow(color=gray,direction=135);
+}
+
+/*
+#dhtmltooltip .description,
+#dhtmltooltip table td label {
+   display : none;
+}
+*/
+
+#dhtmltooltip table tr.last_change {
+   display : none;
+}
+
+#dhtmltooltip .notes {
+    font-style : italic;
+}
+
+
+

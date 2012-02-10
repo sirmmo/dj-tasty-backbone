@@ -1,0 +1,523 @@
+/*
+	CSS ufficiale dei Laboratori Guglielmo Marconi, SpA
+	realizzato da Riccardo Carlesso, Luca Ferroni, Carlo Pentimalli
+	2006, tutti i diritti riservati 
+*/
+
+body {
+  font-family: verdana, arial, helvetica;
+  font-size: 11px;
+  text-align: left;
+  margin : 0px;
+  padding: 0 0 2px 0;
+  color: black;
+}
+
+.background-labs {
+  background: url("images/logo-sfondo-sbiadito.png"); //da rinnovare
+  background-position: top left;
+}
+
+p  { margin-top: 10px; }
+td { vertical-align : top; }
+*/
+
+/* P:first-letter {color: #006600} */
+	
+li {  padding-bottom: 6px}
+
+h1 {
+	font-size: 16px;
+	font-weight: bold;
+	margin: 0 0 5px 0;
+	padding: 0px;
+	color: #005E31;
+	border-bottom: 2px solid #005E31;
+}
+
+h2 {  font-size: 12px; padding-top: 12px; font-weight: bold; color: #004400}
+h3 {  font-weight: bold; color: #003300}
+h4 {  font-weight: bold; color: #002200}
+
+
+A:link    { background: none; color: black; text-decoration: underline} 
+A:active  { background: none; color: black; text-decoration: underline} 
+A:visited { background: none; color: black; text-decoration: underline}
+A:hover   { color: #00FF00; }
+
+.title    { font-size: 13px; font-weight: bold; }
+.content  { font-size: 11px; }
+
+/**** LINK-tag style sheet template_css.css ****/
+ 
+/* Layout */
+
+#pagewidth-800{
+width:770px;
+text-align:left;
+margin-left:auto;
+margin-right:auto;
+margin-bottom: 20px;
+}
+
+
+
+/* comprende toptop e header - background era url(index_files/images/back_verlauf.jpg) */
+#header {
+height:  116px; 
+width:  100%; 
+background: transparent;
+ }
+
+ 
+/* l'area che comprende anche topmenu-serve x distanziare topmenu dal logo */
+#top-top {
+height: 30px;
+width: 100%;
+background: transparent;
+}
+
+
+/* è l'area in alto a destra con i menu */
+#topmenu{
+height: 20px;
+float: right;
+width: 600px;
+}
+
+
+/* larghezza prima colonna - apparentemente non influsice */
+
+
+#leftcol{
+ width: 152px;
+ float: left;
+ position: relative;
+ margin-right: 5px;
+ } 
+
+
+/* un modo per aumentare è trasformare da 770 a 880 la larghezza*/
+
+#outer-800{
+width: 770px;
+padding-top: 6px;
+background: transparent;
+} 
+
+
+
+#maincol-normal-800{ 
+ float: left; 
+ width: 450px !important;
+ margin-left: 0px !important;
+ margin-left: -5px;
+ width: 446px;
+ } 
+ 
+/* aumentata a 618 per occupare tutta la pagina, anche lo spazio della rightcol */
+
+#maincol-broad-800{ 
+ float: right; 
+ margin-left: 20px;
+ width: 570px;
+ } 
+
+ 
+ #maincol-wide-800{ 
+ float: left; 
+ width: 600px !important;
+ width: 595px;
+ margin-left: 0px !important;
+ margin-left: -5px;
+ padding-top: 3px !important;
+padding-top: 0px;
+ } 
+ 
+
+ 
+ #banner {
+ width: 478px;
+ height: 75px;
+ float: left;
+ padding-left: 6px;
+ padding-top: 6px;
+ }
+ 
+ 
+ 
+.clr{clear:both;}
+
+/* testo pagina - le dimensioni del font vengono lette da MSIE */
+
+.content {
+padding: 0px 0px 0px 0px;
+font-size: 11px;
+line-height: 18px;
+}
+
+/* Modules */
+
+#leftcol div.module {
+width: 152px;
+background: transparent;
+margin-bottom: 10px;
+}
+
+#leftcol div.module div  {
+width: 152px;
+background: transparent;
+}
+
+#leftcol div.module div div {
+width: 152px;
+background: transparent;
+}
+
+/* titolo del menu */
+
+
+#leftcol div.module div div div,#rightcol-normal div.module div div div{
+width: 160px;
+padding-left: 5px;
+padding-right: 10px;
+padding-top: 10px;
+background: transparent;
+padding-bottom: 110px;
+margin: 110 px;
+font-size: 11px;
+}
+
+#leftcol div.module div div div div, #rightcol-normal div.module div div div div{
+padding: 2px;
+margin: 0px;
+}
+
+
+div.module h3 {
+background: url(images/module_head_back.jpg) repeat-x;
+font-size: 12px;
+font-weight: bold;
+margin: 0px;
+padding-bottom: 10px;
+height: 20px;
+line-height: 20px;
+font-color: #FFFFFF;
+color: #FFFFFF;
+width: 100%;
+#border-bottom: 0px solid #EFEFEF;
+text-align: left;
+text-indent: 5px;
+}
+
+
+/* Topmenu */
+/* Menu in alto a destra */
+
+ ul#mainlevel-nav
+{
+list-style: none;
+padding: 0;
+margin: 0;
+height: 20px;
+float: right;
+white-space: nowrap;
+}
+
+/* è la combinazione qui sotto di height e lineheight che allinea figura e menu 
+firefox vuole 14px, explorer non ce la fa*/
+
+ul#mainlevel-nav li{
+width: auto !important;
+width: 5%;
+float: right;
+margin: 0;
+font-size: 11px;
+height: 14px;
+line-height: 20px;
+white-space: nowrap;
+margin-right: 1px;	
+background:  url(images/headmenu_left.gif) top left no-repeat;	
+}
+
+ul#mainlevel-nav li a{
+background:  url(images/headmenu_right.gif) top left no-repeat;
+font-weight: normal;
+height: 20px;
+display: block;
+padding-left: 5px;
+padding-right: 10px;
+text-decoration: none;
+color: #CCCCCC;
+margin-left: 5px;
+white-space: nowrap;
+}
+
+/* Questo non lo legge MSIE */
+
+ul#mainlevel-nav li:hover, ul#mainlevel-nav li.sfhover {
+background:  url(images/headmenu_left_hover.gif) top left no-repeat;
+color: #EE6699;
+
+}
+
+ul#mainlevel-nav li:hover a, ul#mainlevel-nav li.sfhover a{
+background:  url(images/headmenu_right_hover.gif) top left no-repeat;
+}
+
+
+
+/* Main Menu(s) */
+
+a.mainlevel {
+font-size: 11px;
+padding-left: 4px;
+display: block;
+line-height: 26px;
+margin-bottom: 2px;
+text-decoration: none;
+font-weight: normal;
+border-right: 4px solid #CACACA;
+voice-family:"\"}\""; /* Box Model fix */
+voice-family:inherit;
+width: 150px; /* Questo lo capisce solo MSIE */
+}
+
+
+
+html>body a.mainlevel {width:150px;} /* Opera5-Fix-fix ;-) - Lo capisce Firefox */
+
+
+a.mainlevel:hover, a.mainlevel#active_menu {
+background: #F1F1F1;
+text-decoration: none;
+}
+
+a.sublevel {
+padding: 0px;
+margin: 0px;
+font-size: 10px;
+padding-left: 12px;
+width: 160px;
+display: block;
+line-height: 20px;
+margin-bottom: 2px;
+text-decoration: none;
+font-weight: normal;
+border-right: 4px solid #CACACA;
+voice-family:"\"}\""; /* Box Model fix */
+voice-family:inherit;
+width: 123px;
+}
+
+html>body a.sublevel {width:123px;} /* Opera5-Fix-fix ;-) */
+
+a.sublevel:hover, a.sublevel#active_menu {
+text-decoration: none;
+width: 139px;
+voice-family:"\"}\""; /* Box Model fix */
+voice-family:inherit;
+width: 123px;
+}
+html>body a.sublevel:hover, a.sublevel#active_menu { /* Opera5-Fix-fix ;-) */
+width: 123px;
+}
+
+
+/* Module specific */
+
+#leftcol div.module div div div div.syndicate {
+background: transparent;
+width: 160px;
+margin: 0px;
+padding: 0px;
+}
+
+#leftcol div.module div div div div.syndicate div {
+background: transparent;
+width: 160px;
+margin: 0px;
+padding: 0px;
+}
+
+
+/* Other Mambo Stuff */
+
+#title {
+}
+.pathway {
+color: #999999;
+font-size: 10px;
+text-decoration: none;
+font-weight: normal;
+}
+
+.pathway a{
+color: #999999;
+text-decoration: none;
+font-weight: normal;
+}
+
+hr {
+width:  90%; 
+ }
+hr.separator {
+width:  40%; 
+ }
+a.pnav {
+}
+.pnav:hover {
+}
+
+.button {
+border: 1px solid #BBBBBB;
+}
+
+.inputbox {
+border: 1px solid #BBBBBB;
+}
+
+
+/*il testo dentro la pagina iniziale */
+
+.contentpaneopen {
+text-align: left;
+padding-left: 10px; 
+padding-top: 16px; 
+background: transparent;
+font-size: 11px;
+line-height: 1.2;
+}
+
+table.contentpane td.contentheading {
+font-weight: bold;
+font-size: 26px;
+height: 23px;
+line-height: 20px;
+padding-right: 30px; 
+font-family: 'Trebuchet MS', verdana, sans-serif;
+border: none;
+}
+
+table.contentpaneopen {
+width:  100%; 
+ }
+
+table.contentpaneopen h1 {
+font-weight: bold;
+font-size: 16px;
+height: 23px;
+line-height: 20px;
+font-family: verdana, arial, helvetica;
+border-bottom: 1px solid #002E61;
+}
+
+table.contentpane ul {
+margin: 0px;
+padding: 0px;
+list-style: none;
+}
+
+table.contentpane ul li{
+padding: 0px;
+margin: 0px;
+padding-left: 15px;
+}
+
+.contentdescription {
+font-size: 10px;
+}
+.sectiontableheader {
+font-weight: bold;
+font-size: 10px;
+height: 25px;
+line-height: 25px;
+}
+
+table.moduletable {
+width:  100%; 
+font-size: 80%;
+ }
+table.moduletable th  {
+font-size: 80%;
+}
+
+
+.back_button a{
+font-size: 10px;
+font-weight: normal;
+}
+
+table.contenttoc {
+border: 1px solid #CCCCCC;
+padding: 3px;
+}
+
+table.contenttoc th{
+font-weight: bold;
+font-size: 10px;
+border-bottom: 1px solid #BBBBBB;
+}
+
+
+/**** LINK-tag style sheet css_color_green.css ****/
+
+a, #search .inputbox, #search .button{
+color: #005E31;
+}
+
+
+
+#maincol-normal-800 div.moduletable h3, #maincol-wide-800 div.moduletable h3, #maincol-broad-800 div.moduletable h3,#maincol-normal-1024 div.moduletable h3, #maincol-wide-1024 div.moduletable h3, #maincol-broad-1024 div.moduletable h3{
+background: url(../images/module_head_back.jpg) repeat-x;
+}
+
+/* Menu di sinistra - voci in bianco e verde */
+
+a.mainlevel {
+color: #005E31;
+}
+
+/* (questo in particolare definisce il colore che compare col mouse*/
+
+a.mainlevel:hover, a.mainlevel#active_menu {
+border-right: 4px solid #669E83;
+}
+
+a.sublevel {
+color: #005E31;
+}
+
+a.sublevel:hover, a.sublevel#active_menu {
+background: #F1F1F1;
+border-right: 4px solid #669E83;
+}
+
+
+
+/* definiti da CP per colori divisioni */
+
+.bunit1 {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 14px; font-weight: bold; color: #FFFFFF; background-color: #CC0099;; text-align: right}
+
+.bunit2 {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 14px; font-weight: bold; color: #000000; background-color: #CCcc66;; text-align: right}
+
+.bunit3 {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 14px; font-weight: bold; color: #FFFFFF; background-color: #0099cc;; text-align: right}
+
+.bunit4 {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 14px; font-weight: bold; color: #FFFFFF; background-color: #9933CC;; text-align: right}
+
+.bunit5 {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 14px; font-weight: bold; color: #FFFFFF; background-color: #339933;; text-align: right}
+
+.bunit {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; padding-right: 125px; color: #000000; text-align: left}
+
+/*il testo del footer */
+
+.modifydate {
+font-size: 10px;
+color: #ABABAB;
+height: 20px;
+line-height: 20px;
+padding-top: 50px;
+margin-bottom: 5px;
+}
+
+

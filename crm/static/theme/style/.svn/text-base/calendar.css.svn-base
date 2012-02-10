@@ -1,0 +1,131 @@
+/* Dimensioni calendario e celle:
+ per modificare la visualizzazione agire su questi elementi
+ */
+
+.table_cell {
+   width : 70px;
+   height : 50px;
+}
+
+.table_row {
+   display : table-row;
+}
+
+#calendar {
+   width : 550px;  
+}
+
+#calendar_head {
+   margin-left : 150px;
+   width : 100%;
+}
+
+#calendar_body > .header {
+   float : left;
+   width : 150px;
+   //position : fixed;
+   background-color : white;
+   z-index : 100;
+}
+
+#calendar_body > .header > .firstrow {
+   width : 150px;
+   background-color : white;
+   border : 0px solid grey;
+   font-size:10px; 
+}
+
+.weekday {
+   text-align : center;
+   font-size : 10px;
+   border : 1px solid lightgrey;
+   margin : 5px 0 10px 0;
+}
+
+.week {
+   margin: 0 15px;
+}
+
+.day_holder, .weekday {
+   display : table-cell;
+}
+
+.other_month {
+   opacity : 50%;
+}
+
+/*
+.days {
+   //position : absolute;
+   //left : 88px;
+   //width : 3700px;
+}
+*/
+
+.day {
+   //margin : 10px 2px 10px 2px;
+   //padding: 8px 10px 8px 10px;
+   border : 1px solid grey;
+   margin : 5px 0 10px 0;
+   text-align : right;
+}
+
+.today {
+   border : 1px solid lightgreen;
+   color : red;
+}
+
+#timecard_form {
+    z-index : 1000;
+    position : absolute;
+    top : 0px;
+    left : 0px;
+    width : 477px;
+    padding : 10px 10px 0px 10px;
+    margin : 5px;
+    background-color : lightyellow;
+    border : 1px solid lightgrey;
+}
+
+/* Prematuro 
+
+#calendar_body .timeslice {
+   display : none;
+   border : 1px solid grey;
+   background-color : lightgrey;
+} 
+
+#calendar_body .timeslices {
+   float : left;
+   width : 80px;
+}
+
+#calendar_body .timeslice {
+   border : 1px solid grey;
+   background-color : lightgrey;
+}
+
+#calendar_body .firstrow {
+   height : 37px;
+   background-color : white;
+   border : 0px solid grey;
+}
+
+#days .day_holder {
+   display : table-cell;
+}
+
+.other_month {
+   opacity : 50%;
+}
+
+.inserting_timecard {
+   height : 100%;
+   background-color : red;
+}
+
+.cielcio {
+   height : 100%;
+   background-color : lightgreen;
+}
+*/

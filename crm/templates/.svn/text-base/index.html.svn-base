@@ -1,0 +1,322 @@
+{% extends "base_reload.html"%}
+{%block style%}
+#sidebar{
+width:200px;
+display:block;
+border-right:1px solid gray;
+float:left;
+}
+#sidebar_divider{
+height:4px;
+background-color:gray;
+width:100%;
+}
+#users_bar ul{
+overflow:auto;
+}
+#projects_bar ul{
+overflow:auto;
+}
+
+#content{
+float:left;
+display:block;
+position:relative;
+
+}
+#toolbar{
+display:block;
+}
+#users_bar{
+overflow-y: scroll;
+
+
+}
+#projects_bar{
+overflow-y: scroll;
+
+
+}
+{%endblock%}
+
+{%block scripts%}
+<script>
+        var user = "{{username}}";
+
+        $.evtsources = [];
+        $.selected_users = [user];
+        $.selected_projects = [];
+        
+        function ES_from_user(user, pe, projects){
+                if (projects.length == 0)
+                        return {
+                                url:'/tasks/'+user+'/'+pe+'/calendar.json',
+
+                                type:'GET',
+                                error:function (){
+                                        alert('errore');
+                                }
+                }
+                else
+                        return {
+                                url:'/tasks/'+user+'/'+pe+'/calendar.json',
+                                data:{
+                                        projects:projects
+                                },
+                        type:'GET',
+                        error:function (){
+                                alert('errore');
+                        }
+                }
+
+        }
+
+
+
+        function reset_calendar(e){
+                for(var el in $.evtsources){
+                        $('#calendar').fullCalendar( 'removeEventSource', $.evtsources[el] );
+                }
+                $.evtsources = [];
+                $('#calendar').fullCalendar( 'removeEvents' );
+        }
+
+
+        function add_calendars(){
+                var pe = $('input.cal_view_sel:checked').val();
+                for (ui in $.selected_users){
+                        add_calendar($.selected_users[ui], pe, $.selected_projects);
+                }
+        }
+
+        function add_calendar(user, pe, projs){
+                $.evtsources.push(ES_from_user(user, pe, projs));
+                $('#calendar').fullCalendar('addEventSource',ES_from_user(user, pe, projs));
+        }
+
+        function reload_calendar(){
+                $('#calendar').fullCalendar( 'refetchEvents' );
+        }
+
+        function resize(){
+                $('#sidebar').height($(window).height()-$('header').height());
+                $('#content').height($(window).height()-$('header').height());
+
+                $('#content').width($(window).width()-$('#sidebar').width()-2);
+
+                $('#movable').height($('#content').height()-$('#toolbar').height()-2);
+                $('#movable').width($('#content').width()-2);
+
+                $('#projects_bar').height(($('#sidebar').height()/2)-2);
+                $('#users_bar').height(($('#sidebar').height()/2)-2);
+
+                $('#calendar').fullCalendar('option', 'aspectRatio', $('#movable').width()/$('#movable').height());
+        }
+
+        function CreateRow(row, key, value){
+                var str = "";
+                var is_url = key == "url";
+                str += (row % 2 == 0) ? '<tr class="alt">' : '<tr>';
+                str += '<th scope="row">' + key + '</th>';
+                str += '<td>';
+                if (is_url)
+                        str += "<a class='more_info' href='#" + value + "'>";
+                str += value;
+                if (is_url)
+                        str +="</a>";
+                str += '</td>';
+                str += '</tr>';
+                return str;
+
+        }
+
+        function CreateDetailView(obj) {
+                var str = '';
+                if (typeof(obj) == "object"){
+                        if ('length' in obj){
+                                for (var n in obj){
+                                        str += CreateDetailView(obj[n]);
+                                }
+                        } else{
+
+                                str += '<table>';
+                                str += '<tbody>';
+
+                                for (var key in obj) {
+                                        var row = 0;
+                                        if (typeof(obj[key]) == "object") {
+                                                if ('length' in obj[key]){
+                                                        for (var index in obj[key]) {
+                                                                str += CreateRow(row, key, CreateDetailView(obj[key][index]))
+                                                        }
+                                                }else{
+                                                        str += CreateRow(row, key,CreateDetailView(obj[key]));
+                                                }
+                                        }
+                                        else{
+                                                str += CreateRow(row, key,CreateDetailView(obj[key]));
+                                        }
+                                        row++;
+                                }
+                                str += '</tbody>'
+                                str += '</table>';
+                                return str;
+                        }
+
+                } else
+                        return obj;
+
+        }
+
+        $('input:checkbox[name=selected_user]').live('click',function(){
+
+                reset_calendar();
+                $.selected_users = [user];
+                $('input:checkbox[name=selected_user]:checked').each(function() {
+                        $.selected_users.push($(this).val());
+                });
+                add_calendars();
+                reload_calendar();
+        });
+        $('input:checkbox[name=selected_proj]').live('click', function(){
+
+                reset_calendar();
+
+                $.selected_projects = [];
+                $('input:checkbox[name=selected_proj]:checked').each(function() {
+                        $.selected_projects.push($(this).val());
+                });
+                add_calendars();
+                reload_calendar();
+        });
+        
+        $(document).ready(function(){
+                resize()
+                $('#calendar_view').buttonset();
+
+                $.getJSON('/info/user', function(data){
+                        for (el in data){
+                                $('#user_list').append('<li class="user_selector"><input type="checkbox" name="selected_user" value='+data[el]['username']+'><a class="more_info"  href="#'+data[el]['url']+'">'+data[el]['fullname']+'</a></li>')
+                        }
+                });
+
+                $.getJSON('/info/project', function(data){
+                        for (el in data){
+                                $('#proj_list').append('<li class="proj_selector"><input type="checkbox" name="selected_proj" value='+data[el]['id']+'><a class="more_info" href="#'+data[el]['url']+'">'+data[el]['name']+'</a></li>')
+                        }
+                });
+
+                $('input.cal_view_sel').click(function(){
+                        reset_calendar();
+                        add_calendars();
+                        reload_calendar();
+                });
+                
+                $.evtsources = [ES_from_user(user, $('input.cal_view_sel:checked').val(), [])];
+
+                $('#calendar').fullCalendar({
+                        theme:true,
+                        firstDay:1,
+                        allDaySlot:false,
+                        firstHour:8,
+                        axisFormat:'HH:mm',
+                        header: {
+                                left:   'title',
+                                center: 'month agendaWeek agendaDay',
+                                right:  'today prev,next'
+                        },
+                        eventSources:[ES_from_user(user, $('input.cal_view_sel:checked').val(), [])]
+                });
+
+                $('#movable').tabs().resizable();
+
+                var dates = $( "#from, #to" ).datepicker({
+                        defaultDate: "+1w",
+                        changeMonth: true,
+                        numberOfMonths: 3,
+                        onSelect: function( selectedDate ) {
+                                var option = this.id == "from" ? "minDate" : "maxDate",
+                                instance = $( this ).data( "datepicker" ),
+                                date = $.datepicker.parseDate(
+                                instance.settings.dateFormat ||
+                                        $.datepicker._defaults.dateFormat,
+                                selectedDate, instance.settings );
+                                dates.not( this ).datepicker( "option", option, date );
+                        }
+                });
+                $('.more_info').click(function(){
+                        var url = $(this).attr('href').split('#')[1];
+                        $.getJSON(url, function(data){
+                                CreateDetailView(data).dialog();
+                        });
+                });
+                resize();
+                $(window).resize(resize);
+
+        });
+
+</script>
+{%endblock%}
+
+{%block user_data%}
+<div class="username">{{username}}</div>
+{%endblock%}
+
+{%block logo%}
+{%endblock%}
+
+{%block content%}
+<div id="sidebar">
+        <div id="users_bar">
+                <ul id="user_list">
+
+                </ul>
+        </div>
+        <div id="sidebar_divider"></div>
+        <div id="projects_bar">
+                <ul id="proj_list">
+                </ul>
+        </div>
+</div>
+<div id="content">
+        <div id="toolbar">
+                <div id="calendar_view">
+                        <input type="radio" class="cal_view_sel" id="view_plan" value="planning" name="view" checked="true"/><label for="view_plan">Pianificazione</label>
+                        <input type="radio" class="cal_view_sel" id="view_ext" value="reporting" name="view" /><label for="view_ext">Rendicontazione</label>
+                </div>
+        </div>
+        <div id="movable">
+                <ul>
+                        <li><a href="#calendar">Calendario</a></li>
+                        <li><a href="#timeline">Timeline</a></li>
+                        <li><a href="#table">Tabella</a></li>
+                </ul>
+                <div id="calendar"></div>
+                <div id="timeline">
+                        <div id="slider-stage">
+                                <ul id="myList">
+                                        <li > </li>
+                                        <li > </li>
+                                        <li > </li>
+                                        <li > </li>
+                                </ul>
+                        </div>
+                        <div id="slider-buttons">
+                                <a href="#" id="previous_week">Previous</a>
+                                <a href="#" id="next_week">Next</a>
+                        </div>
+                </div>
+                <div id="table">
+                        <div id="search_box">
+                                <div id="timespan">
+                                        <label for="from">From</label>
+                                        <input type="text" id="from" name="from"/>
+                                        <label for="to">to</label>
+                                        <input type="text" id="to" name="to"/>
+                                </div>
+                                <input type="submit" name="Search" />
+                        </div
+                </div>
+        </div>
+</div>
+{%endblock%}

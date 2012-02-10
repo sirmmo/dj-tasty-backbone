@@ -1,0 +1,79 @@
+/* Timecards */
+
+.timecard {
+   position : absolute;
+   background-color : lightgreen;
+   border : 1px solid grey;
+   font-size : 10px;
+   -moz-border-radius: 0.7em;
+}
+
+.timecard:hover {
+   border : 1px solid blue;
+   z-index : 10;
+}
+
+/* Non usato per ora ... era per il trascinamento... */
+/*.inserting_timecard {
+   height : 100%;
+   background-color : red;
+}*/
+
+/* "non riposizionabile" */
+.timecard.important {
+   border : 2px solid red;
+}
+
+/* "lavoro fuori sede" */
+.timecard.province {
+   background-color : #FFDA11;
+}
+
+.timecard.italy {
+   background-color : orange;
+}
+
+.timecard.foreign_country {
+ /* background-image : url('/static/theme/img/resources/site.png');
+    background-repeat : no-repeat;
+    background-position : right; */
+   background-color : #CC9900;
+}
+
+/* ferie e permessi */
+.timecard[activity="1001"] { background-color : #36d; }
+/* ferie e permessi non retribuiti */
+.timecard[activity="1037"] { background-color : #99CCFF; }
+/* malattia */
+.timecard[activity="1002"] { background-color : red; }
+
+/* Vecchi colori dei progetti ... li lascio per ispirazione 
+.timecard[project="1"] { background-color : cyan; }
+.timecard[project="2"] { background-color : yellow; }
+.timecard[project="3"] { background-color : blue; }
+.timecard[project="4"] { background-color : magenta; }
+.timecard[project="5"] { background-color : pink; }
+.timecard[project="6"] { background-color : grey; }
+.timecard[project="8"] { background-color : lightblue; }
+.timecard[project="9"] { background-color : brown; }
+.timecard[project="10"] { background-color : purple; }
+.timecard[project="11"] { background-color : green; }
+.timecard[project="12"] { background-color : violet; }
+.timecard[project="13"] { background-color : #34a; }
+.timecard[project="14"] { background-color : #FFDA11; }
+.timecard[project="24"] { background-color : #f0b; }
+.timecard[project="27"] { background-color : #dfa; }
+.timecard[project="31"] { background-color : #20f; }
+.timecard[project="33"] { background-color : #606; }
+.timecard[project="34"] { background-color : #066; }
+.timecard[project="35"] { background-color : #36d; }
+.timecard[project="37"] { background-color : #c12; }
+.timecard[project="38"] { background-color : #c21; }
+.timecard[project="39"] { background-color : #d63; }
+.timecard[project="41"] { background-color : #d36; }
+.timecard[project="43"] { background-color : #1c2; }
+.timecard[project="44"] { background-color : #1ff; }
+.timecard[project="45"] { background-color : #f4a; }
+.timecard[project="47"] { background-color : #aa1; }
+.timecard[project="48"] { background-color : #a1a; }
+*/

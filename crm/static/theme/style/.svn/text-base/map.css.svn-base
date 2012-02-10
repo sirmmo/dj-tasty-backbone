@@ -1,0 +1,70 @@
+/* Foglio di stile inserito inline per poter usare i simboli definiti in <defs> */
+
+text {
+	display : inline;
+	fill : black;
+	font-family : verdana, arial, helvetica;
+	font-size : 400;
+	stroke-width : 40; 
+}
+
+/* Risorse */
+.CContainerCategory {
+	display : none;
+    stroke : black;
+	stroke-width : 20; 
+	fill: lightyellow; 
+}
+
+.site {
+	stroke-width : 100; 
+	fill: white; 
+}
+
+.CNodeCategory {
+	stroke : black; 
+	stroke-width : 2; 
+	fill: green; 
+}
+
+.CIfaceCategory {
+	stroke : black; 
+	stroke-width : 2; 
+	left : 10px;
+}
+
+/* Connettori */
+path.connection {
+    fill:none;
+	fill-rule:evenodd;
+	stroke-width:100px;
+	stroke-linecap:butt;
+	stroke-linejoin:miter;
+	stroke-opacity:1;
+	display:inline;
+}
+
+/* Stati */
+
+.UP { fill : lightgreen; }
+.DN, .DOWN { fill : red; }
+.FA { fill : yellow; }
+.UU { fill : lightgrey; }
+
+
+path.DOWN_to_UP { stroke : url(#redtogreen); }
+path.UP_to_DOWN { stroke : url(#greentored); }
+path.UP_to_UP { stroke : #0F0; }
+path.DOWN_to_DOWN { stroke : #F00; }
+path.UP_to_UU { stroke : url(#greentogrey); }
+path.DOWN_to_UU { stroke : url(#redtogrey); }
+path.UU_to_DOWN { stroke : url(#greytored); }
+path.UU_to_UP { stroke : url(#greytogreen); }
+path.UU_to_UU { stroke : rgb(211,211,211); }
+
+/* Stati spanning-tree */
+
+.FORWARDING { fill : lightgreen; }
+.BLOCKING 	{ fill : red; }
+.root_bridge{ fill : blue; }
+

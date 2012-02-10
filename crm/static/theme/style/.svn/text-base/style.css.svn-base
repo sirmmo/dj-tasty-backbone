@@ -1,0 +1,155 @@
+.right { float: right; }
+.left { float: left; }
+
+.smallitalicnotes {
+   width : 150px;
+   text-align : justify;
+   font-style : italic;
+   padding-top: 3px;
+}
+
+/*** Calendario ***/
+.DateInput {
+    width : 200px;
+}
+
+select.calendarDateInput {
+    min-width : 0px;
+    width : 50px;
+    max-width : 50px;
+}
+
+input.calendarDateInput {
+    min-width : 0px;
+    width : 50px;
+    max-width : 50px;
+}
+
+/*** Albero nella ricerca ***/
+.TreeInput, .tree {
+	padding: 0.3em; 
+}
+.treenode {
+	padding: 0.3em 0px; 
+}
+.subtree {
+	margin : 0.4em 1em;
+}
+
+
+.timebar { 
+   float : right;
+   position:relative; 
+   right: -200px; 
+   bottom : 15px; 
+}
+
+/*** Elemento di una barra di visualizzazione ***/
+.bar_element {
+    font-size : 11px;
+    padding : 0 1px 0 1px;
+    border-top : 1px solid black;
+    border-bottom : 1px solid black;
+    border-left : 1px dashed black;
+    border-right : 1px dashed black;
+}
+
+/* Blocchi con stile */
+
+.block { 
+   position : relative;
+   margin : 10px 1px 0 1px;
+   border : 1px solid #ccc;
+   border-collapse : collapse;
+   min-width : 200px;
+   -moz-border-radius-bottomleft : 1em;
+   -moz-border-radius-bottomright : 1em;
+
+}
+/* width : 100%; */
+
+/* Intestazione */
+.block_header {
+   border-bottom : 1px solid lightgrey;
+   background-color : #d7ecc7;
+   clear : both;
+}
+
+.block_header > h1 {
+   text-align : center;
+   font-size: 14px;
+   font-weight: bold;
+   padding : 0;
+   border : 0;
+}
+
+/* Icona di identificazione */
+.block_icon {
+   background: transparent;
+   margin : 1px 0 0 2px;
+}
+
+/* Operazioni */
+.block_header > .toolbar {
+   padding: 1px;
+}
+
+.header_button {
+   cursor : pointer;
+   margin : 2px 1px 0 0;
+}
+
+/* Fine operazioni */
+
+/* Corpo del blocco */ 
+.block_body {
+   display : block;
+   max-height : 300px;
+   width : 100%;
+   overflow : auto;
+}
+
+/* Piede */
+.block_footer {
+   float : right;
+   border-collapse : collapse;
+}
+
+/* AARGH! To Be Fixed ! ! ! #details e' troppo generico ! */
+.block #details .block_footer img {
+   border : 1px solid grey;
+   background-color : #ddd;
+   margin : 2px;
+   padding : 0px 0px 0px 6px;
+}
+
+.block_footer button {
+    background-color : white;
+    border : 2px groove white;
+    padding : 0;
+    cursor : pointer;
+}
+
+.block_footer button:hover {
+    background-color : #005E31;
+}
+
+/* Varie */
+
+.comment {
+    font-size : 14px;
+    font-style : italic;
+}
+
+.noresults {
+    text-align : center;
+    padding-top : 10px;
+    font-weight : bold;
+}
+
+.novalue {
+  display : none;
+}
+
+/* Fine Varie */
+

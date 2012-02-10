@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html>
+        <head>
+                <title>Reload 2.0</title>
+                <script src="/static/js/head.load.min.js"></script>
+               <!-- <script src="/static/js/jquery-1.5.1.min.js"></script>
+                <script src="/static/js/jquery-ui-1.8.13.custom.min.js"></script>
+		<script src="/static/js/jquery.ui.timepicker.js"></script>
+                <script src="/static/js/fullcalendar.min.js"></script>-->
+                <link rel="stylesheet" href="/static/theme/jquery-ui-1.8.13.custom.css"></link>
+		<link rel="stylesheet" href="/static/theme/jquery-ui-timepicker.css"></link>
+                <link rel="stylesheet" href="/static/theme/fullcalendar.css"></link>
+                <style>
+                        body{
+                                margin:0 0 0 0;
+                                font-family:Calibri, verdana, arial, sans-serif;
+                                font-size:small;
+                        }
+                        header{
+
+                                height:100px;
+                                background-color:#72B42D;
+                                display:block;
+                        }
+                        .title{
+                                font-size:80px;
+                                padding-left:30px;
+			   }
+                        footer{
+                                height:20px;
+                                background-color:white;
+                                display:block;
+                                width:100%;
+                                text-align:center;
+                                clear:both
+                        }
+                        .author{
+                                font-size:xx-small;
+                        }
+
+                      
+                        #user_data{
+                                display:inline-block;
+                                padding-left:50px;
+                        }
+                        #logo{
+                                float:right;
+                        }
+                        {% block style %}
+                        {%endblock%}
+                </style>
+                {%block scripts%}
+
+{%endblock%}
+                
+        </head>
+        <body>
+        <header>
+                <span class="title">{{installation_name}}</span>
+                <div id="user_data">
+        {%block user_data%}
+        {%endblock%}
+                </div>
+                <div id="logo">        
+        {%block logo%}
+        {%endblock%}
+                </div>
+        </header>
+        {%block content%}
+        {%endblock%}
+	<footer>
+		Fork this on <a href="https://github.com/sirmmo/dj-cream">github</a>
+	</footer>
+</body>
+</html>

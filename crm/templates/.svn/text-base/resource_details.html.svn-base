@@ -1,0 +1,60 @@
+{% load i18n basic_tags adminmedia %}
+
+<html>
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-type"/>
+	<meta content="it" http-equiv="Content-Language"/>
+	<meta content="NONE,NOARCHIVE" name="robots"/>
+
+	<link href="{{ "/theme/style/global.css"|static_url_by_agent:http_agent }}" type="text/css" rel="stylesheet"/>
+	<link href="{{ "/theme/style/changelists.css"|static_url_by_agent:http_agent }}" type="text/css" rel="stylesheet"/>
+	<link href="{{ "/theme/style/tooltip.css"|static_url_by_agent:http_agent }}" type="text/css" rel="stylesheet"/>
+	<link href="{{ "/theme/style/details.css"|static_url_by_agent:http_agent }}" type="text/css" rel="stylesheet"/>
+	<link rel="stylesheet" type="text/css" href="{% admin_media_prefix %}css/forms.css">
+	<link rel="stylesheet" href="{{ "/theme/style/form_from_django.css"|static_url_by_agent:http_agent }}" type="text/css" />
+
+	<script type="text/javascript" src="/jsi18n/"></script>
+	<script type="text/javascript" src="/media/js/core.js"></script>
+	<script type="text/javascript" src="/media/js/calendar.js"></script>
+	<script type="text/javascript" src="{{ "/js/admin/DateTimeShortcuts.js"|static_url_by_agent:http_agent }}"></script>
+	<script src="{{ "/js/scriptacolous/prototype.js"|static_url_by_agent:http_agent }}" type="text/javascript"></script>
+	<script src="{{ "/js/scriptacolous/scriptaculous.js"|static_url_by_agent:http_agent }}" type="text/javascript"></script>
+	<script src="{{ "/js/base.js"|static_url_by_agent:http_agent }}" type="text/javascript"></script>
+	<!-- to be merged with base.js -->
+		<script src="{{ "/js/base_firefox.js"|static_url_by_agent:http_agent }}" type="text/javascript"></script>
+	<script src="{{ "/js/tooltip.js"|static_url_by_agent:http_agent }}" type="text/javascript"></script>
+	<script src="{{ "/js/details.js"|static_url_by_agent:http_agent }}" type="text/javascript"></script>
+	<script type="text/javascript">//<![CDATA[
+		task_urns = [ "{{ urn }}" ];	
+		Event.observe(window, "load", init);
+	//]]></script>
+
+</head>
+<body>
+
+<div id="dhtmltooltip"> </div>
+
+<h1><span id="subject"> {{ subject }} </span> -  
+ <a href="javascript:window.print();">{% trans "print" %}</a> </h1>
+
+<div id="activity_panel">
+	<div class="filter">
+		<a href="#" onclick="labs_date.set_prev_month(); load_month(labs_date); return false;">&lt;--</a> 
+		<span id="labs_date">{% with date.month as isomonth %}{% with isomonth|month as month %}{% trans month %}{% endwith %}{% endwith %} {{ date.year }}</span>
+		<a href="#" onclick="labs_date.set_next_month(); load_month(labs_date); return false;">--&gt;</a> 
+	</div>
+
+	<div class="change-list" id="activities" style="margin:15px;"> </div>
+</div>
+
+{# Da creare un templatetag per farlo in modo DRY #}
+ <!-- Placeholder for "the cloud" -->
+<div id="timecard_form" class="form_from_django" style="display : none;">
+	<div class="header">
+		<a href="#" onclick="close_timecard_form(); return false;" style="font-size: 10px; position : absolute; right : 10px;">Chiudi</a>
+	</div>
+	<div class="body" />
+</div>
+
+</body>
+</html>

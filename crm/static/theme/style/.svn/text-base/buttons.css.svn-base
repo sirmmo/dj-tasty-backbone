@@ -1,0 +1,87 @@
+/*********************************************
+ * Vecchi bottoni nei blocchi ... carini...  *
+
+#body button {
+    width : 36px;
+    height : 36px;
+    background-clip : padding;
+}
+
+#body button.modify {
+    background: white url('/static/theme/img/buttons/edit32x32.gif') center top no-repeat;
+}
+
+#body button.show_details {
+    background: white url('/static/theme/img/buttons/info32x32.gif') center top no-repeat;
+}
+
+#body button:hover {
+    background-color: lightgreen;
+}
+
+**********************************************/
+
+#section_toolbar {
+    display : table-row;
+}
+
+#section_toolbar .button {
+    display : table-cell;
+    padding : 5px;
+    //background-color : #005E31;
+    color : white;
+    border-bottom : 1px solid #005E31;
+    border-right : 1px solid #005E31;
+    border-left : 1px solid #005E31;
+   -moz-border-radius-bottomleft : 1em;
+   -moz-border-radius-bottomright : 1em;
+    cursor : default;
+}
+
+#section_toolbar > .selected {
+    background-color : white;
+    color : #005E31;
+    font-style : italic;
+    font-size : 28px;
+}
+
+#section_toolbar > .selectable {
+    background-color : #005E31;
+    color : white;
+}
+
+#section_toolbar > .selectable:hover {
+   background-color: orange;
+   cursor : pointer;
+}
+
+#view_toolbar_wrapper {
+   height : 1.5em;
+}
+
+#view_toolbar {
+   float : right;
+   position : relative;
+   z-index : 0;
+}
+
+#view_toolbar > .button {
+    padding : 3px;
+    border : 1px solid lightgrey;
+    border-bottom : 0px none;
+    background-color : #eee;
+    position : relative;
+    bottom : 1px;
+}
+
+#view_toolbar > .selected {
+   border : 1px solid black;
+   border-bottom : 0px none;
+   background-color : white;
+   bottom : 0px;
+   z-index : 10;
+}
+
+#view_toolbar > .selected > a {
+   text-decoration : none;
+}

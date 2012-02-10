@@ -1,0 +1,12 @@
+#timecard_form {
+    z-index : 1000;
+    position : absolute;
+    top : 0px;
+    left : 0px;
+    width : 477px;
+    padding : 10px 10px 0px 10px;
+    margin : 5px;
+    background-color : lightyellow;
+    border : 1px solid lightgrey;
+}
+

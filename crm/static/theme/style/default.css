@@ -1,0 +1,67 @@
+/*** Default settings ***/
+/* Redatto sulla base di labs2006b: foglio di stile ufficiale
+   Laboratori Guglielmo Marconi
+*/
+
+/*
+ * TODO: creare un template basilare per TUTTO 
+ * quello che e' realizzato in LABS
+ *
+ */
+
+body {
+  font-family: verdana, arial, helvetica;
+  font-size : 12px;
+  margin : 0px 7px 0 7px;
+  padding: 0 0 2px 0; 
+  background-color : white;
+  color: black;
+}
+
+label { 
+  font-weight : bold; 
+  white-space : nowrap;
+}
+.critical { color : red; }
+
+td { vertical-align : top; }
+ul { padding : 0; }
+
+button, img.plusminus:hover {
+  cursor : pointer;
+}
+
+button[disabled] {
+  cursor : default;
+  background-color : transparent;
+  border : 0;
+}
+
+input[readonly], input[disabled], textarea[disabled], textarea[readonly] { 
+  background-color : lightgrey; 
+  color : grey;
+}
+
+input, textarea, select { 
+   font-size : 12px;
+   border : 2px groove green;
+} 
+
+select   { min-width:110px; }
+
+h1 { margin: 0px; padding: 0px; color: #005E31; font-size:26px; }
+h2 { font-size: 12px; padding-top: 12px; font-weight: bold; color: #004400}
+h3 { font-weight: bold; color: #003300}
+h4 { font-weight: bold; color: #002200}
+
+.title 	 {background: none; color: #000000; font-size: 13px; font-weight: bold; }
+
+.roundcorners {
+   -moz-border-radius : 0.7em;
+}
+
+.bottomroundcorners {
+   -moz-border-radius-bottomleft : 1em;
+   -moz-border-radius-bottomright : 1em;
+}
+
